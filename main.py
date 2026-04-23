@@ -36,7 +36,6 @@ def main(args):
         project="dnfs",
         name=f"ising_dim={args.ising_dim}_sigma={args.ising_sigma}_bias={args.ising_bias}",
         config=args,
-        mode="online",
     )
 
     target_density = load_ising_models(args)
@@ -161,12 +160,12 @@ if __name__ == "__main__":
     parser.add_argument('--ising_bias', type=float, default=0.2)
 
     parser.add_argument('--eval_every', type=int, default=1)
+    parser.add_argument('--device', type=str, default='cuda')
+    parser.add_argument('--epochs', type=int, default=2000)
     args = parser.parse_args()
 
     config = SimpleNamespace(
         vocab_size=2,
-        device='cuda',
-        epochs=2000,
         T=64,
         N=256,
         lr=1e-3,
