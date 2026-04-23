@@ -24,3 +24,32 @@ python main.py --ising_dim 5 --ising_sigma 0.1 --ising_bias 0.2 --eval_every 1
 python main.py --ising_dim 10 --ising_sigma 0.1 --ising_bias 0.0 --eval_every 5
 python main.py --ising_dim 10 --ising_sigma 0.22305 --ising_bias 0.0 --eval_every 5
 ```
+
+## Environment
+
+Local development uses [pixi](https://pixi.sh). After cloning:
+
+```bash
+pixi install
+pixi run smoke   # 2-epoch CPU sanity check
+```
+
+## Running on Modal
+
+Training runs on Modal with an L4 GPU. One-time setup (creates the `wandb` secret Modal needs):
+
+```bash
+pixi run modal secret create wandb WANDB_API_KEY=<key-from-https://wandb.ai/authorize>
+```
+
+Then:
+
+```bash
+# Short sanity run
+pixi run modal run modal_app.py --ising-dim 5 --epochs 5
+
+# Full runs
+pixi run modal run modal_app.py --ising-dim 5  --ising-sigma 0.1     --ising-bias 0.2 --eval-every 1
+pixi run modal run modal_app.py --ising-dim 10 --ising-sigma 0.1     --ising-bias 0.0 --eval-every 5
+pixi run modal run modal_app.py --ising-dim 10 --ising-sigma 0.22305 --ising-bias 0.0 --eval-every 5
+```

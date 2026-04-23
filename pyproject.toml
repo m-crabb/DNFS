@@ -1,0 +1,28 @@
+[project]
+name = "dnfs"
+version = "0.1.0"
+description = "Discrete Neural Flow Samplers"
+requires-python = ">=3.11,<3.12"
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.dependencies]
+python = "3.11.*"
+
+[tool.pixi.pypi-dependencies]
+torch = "*"
+wandb = "*"
+tqdm = "*"
+einops = "*"
+igraph = "*"
+numpy = "*"
+matplotlib = "*"
+scipy = "*"
+modal = "*"
+
+[tool.pixi.tasks]
+smoke = "WANDB_MODE=disabled python main.py --ising_dim 5 --ising_sigma 0.1 --ising_bias 0.2 --eval_every 1 --device cpu --epochs 2"
+train-local = "python main.py"
+modal-run = "modal run modal_app.py"
